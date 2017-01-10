@@ -1,0 +1,104 @@
+﻿@model PIDHub.ViewModels.QuadDetailViewModel
+
+<div class="container">
+    <h2>
+        @(Model.QuadID == 0 ? "Add" : "Edit") Quad</h2>
+    <div id="searchForm" style="display: table-cell; vertical-align:top; white-space:nowrap;">
+        <form id="addEditQuadForm">
+            @Html.HiddenFor(m => m.QuadID)
+            <table id="searchTable">
+                <tr>
+                    <td>Quad Name:</td>
+                    <td>@Html.TextBoxFor(m => m.QuadName)</td>
+                </tr>
+                <tr>
+                    <td>Frame:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedFrameID, Model.FrameList, "Select", new { id = "SelectedFrameID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>Software:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedFCSoftwareID, Model.FlightControllerSoftwareList, "Select", new { id = "SelectedFCSoftwareID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>Hardware:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedFCHardwareID, Model.FlightControllerHardwareList, "Select", new { id = "SelectedFCHardwareID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>Motors:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedMotorID, Model.MotorList, "Select", new { id = "SelectedMotorID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>ESCs:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedESCID, Model.ESCList, "Select", new { id = "SelectedESCID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>Props:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedPropID, Model.PropList, "Select", new { id = "SelectedPropID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td>Battery:</td>
+                    <td>@Html.DropDownListFor(f => f.SelectedBatteryID, Model.BatteryList, "Select", new { id = "SelectedBatteryID", @class = "dropdown-toggle" })</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="btn btn-default" type="submit" id="submit" value="Save"> <input class="btn btn-default" type="reset" id="reset" value="Reset"></td>
+                    <td><input class="btn btn-default" type="button" id="backButton" value="Back"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    <script>
+
+        $('#addEditQuadForm').submit(function (e) {
+            // call js validation
+            e.preventDefault();
+            if (validateQuadForm()) {
+                $.ajax({
+                    url: '@Url.Action("SaveQuad", "Home")',
+                    type: 'POST',
+                    cache: false,
+                    data: $('#addEditQuadForm').serialize(),
+                    success: function (msg) {
+                        if (msg != "") {
+                            alert(msg);
+                        }
+                        else {
+                            alert("Save Completed");
+                            getUserQuadList();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ", " + thrownError);
+                    }
+                });
+            }
+        });
+
+        $("#backButton").click(function () {
+            getUserQuadList();
+        });
+
+        function validateQuadForm() {
+            var errorMsg = "";
+            var fieldValue;
+
+            var fieldNameArray = new Array("QuadName", "SelectedFrameID", "SelectedFCSoftwareID", "SelectedFCHardwareID", "SelectedMotorID", "SelectedESCID", "SelectedPropID", "SelectedBatteryID");
+            var fieldLabelArray = new Array("Quad Name","Frame", "Software", "Hardware", "Motors", "ESCs", "Props", "Battery");
+            for (var i = 0; i < fieldNameArray.length; i++) {
+                fieldValue = $("#" + fieldNameArray[i]).val();
+                if (fieldValue == "") {
+                    errorMsg += fieldLabelArray[i] + " \n";
+                }
+            }
+            if (errorMsg != "") {
+                errorMsg = "The following fields are required: \n\n" + errorMsg;
+                alert(errorMsg);
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+    </script>

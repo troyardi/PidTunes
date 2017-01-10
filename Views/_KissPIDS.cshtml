@@ -1,0 +1,79 @@
+﻿@model PIDHub.ViewModels.UserTuneViewModel
+
+<style>
+    #pidTable {
+        background-color: #000000;
+        border-collapse: collapse;
+    }
+    #pidTable tr, #pidTable th {
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .spinner {
+        width: 30px;
+    }
+
+    .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+        @if (!Model.isEditable) { <text>opacity:1;</text> }
+    }
+
+</style>
+<script>
+    $(function () {
+        $(".spinner").spinner({
+            step: 0.01,
+            numberFormat: "n"
+            @if (!Model.isEditable) { <text>,disabled: true</text> }
+        });
+    });
+</script>
+
+<div class="table-responsive">
+    <table style="width:551px;" class="table" id="pidTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>P</th>
+                <th>I</th>
+                <th>D</th>
+                <th>Rate</th>
+                <th>RC Rate</th>
+                <th>RC Curve</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope=row>Roll</th>
+                <td><input name="Roll_P" id="Roll_P" class="spinner" value="@Model.Roll_P"></td>
+                <td><input name="Roll_I" id="Roll_I" class="spinner" value="@Model.Roll_I"></td>
+                <td><input name="Roll_D" id="Roll_D" class="spinner" value="@Model.Roll_D"></td>
+                <td><input name="Roll_Rate" id="Roll_Rate" class="spinner" value="@Model.Roll_Rate"></td>
+                <td><input name="Roll_RCRate" id="Roll_RCRate" class="spinner" value="@Model.Roll_RCRate"></td>
+                <td><input name="Roll_RCCurve" id="Roll_RCCurve" class="spinner" value="@Model.Roll_RCCurve"></td>
+            </tr>
+            <tr>
+                <th scope=row>Pitch</th>
+                <td><input name="Pitch_P" id="Pitch_P" class="spinner" value="@Model.Pitch_P"></td>
+                <td><input name="Pitch_I" id="Pitch_I" class="spinner" value="@Model.Pitch_I"></td>
+                <td><input name="Pitch_D" id="Pitch_D" class="spinner" value="@Model.Pitch_D"></td>
+                <td><input name="Pitch_Rate" id="Pitch_Rate" class="spinner" value="@Model.Pitch_Rate"></td>
+                <td><input name="Pitch_RCRate" id="Pitch_RCRate" class="spinner" value="@Model.Pitch_RCRate"></td>
+                <td><input name="Pitch_RCCurve" id="Pitch_RCCurve" class="spinner" value="@Model.Pitch_RCCurve"></td>
+            </tr>
+            <tr>
+                <th scope=row>Yaw</th>
+                <td><input name="Yaw_P" id="Yaw_P" class="spinner" value="@Model.Yaw_P"></td>
+                <td><input name="Yaw_I" id="Yaw_I" class="spinner" value="@Model.Yaw_I"></td>
+                <td><input name="Yaw_D" id="Yaw_D" class="spinner" value="@Model.Yaw_D"></td>
+                <td><input name="Yaw_RCRate" id="Yaw_RCRate" class="spinner" value="@Model.Yaw_RCRate"></td>
+                <td><input name="Yaw_Rate" id="Yaw_Rate" class="spinner" value="@Model.Yaw_Rate"></td>
+                <td><input name="Yaw_RCCurve" id="Yaw_RCCurve" class="spinner" value="@Model.Yaw_RCCurve"></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

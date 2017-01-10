@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d43ed3031987438e8b22ae802102cd92" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Battery" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.ESC" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.FlightControllerHardware" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.FlightControllerSoftware" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Frame" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Motor" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Prop" Width="1.5" PointX="0.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Quad" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.Tune" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_61520_pidhubModel.UserAccount" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_Battery" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_ESC" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_FlightControllerHardware" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_FlightControllerSoftware" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_Frame" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_Motor" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_Prop" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Quad_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_61520_pidhubModel.FK_Tune_Quad" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

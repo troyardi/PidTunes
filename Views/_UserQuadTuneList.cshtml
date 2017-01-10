@@ -1,0 +1,57 @@
+﻿<h2>Manage Tunes</h2>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table id="tuneGrid" data-source="@Url.Action("GetUserQuadTuneList", "Home")"></table>
+            <div><button id="addTune" type="button" onclick="addTune(@ViewBag.QuadID,@ViewBag.FlightControllerSoftwareID);" class="btn btn-primary">Add Tune</button></div>
+        </div>
+    </div>
+</div>
+                    @*
+                   
+                        columns.Add(c => c.TuneName)
+                        .Titled("Tune")
+                        .SetFilterWidgetType("CustomCompanyNameFilterWidget");
+
+                        columns.Add()
+                        .Encoded(false)
+                        .Sanitized(false)
+                        .RenderValueAs(o => @<button type="button" class="btn btn-primary" onclick="editTune(@o.TuneID);">Edit</button>);
+
+                        columns.Add()
+                        .Encoded(false)
+                        .Sanitized(false)
+                        .RenderValueAs(o => @<button type="button" class="btn btn-primary" onclick="deleteTune(@o.TuneID, @Model.QuadID);">Delete</button>);
+
+                    }).WithPaging(10).Sortable(true)
+
+    </div>
+</div>*@
+
+<script>
+    grid = $("#tuneGrid").grid({
+        dataKey: "TuneID",
+        uiLibrary: "bootstrap",
+        columns: [
+          { field: "TuneName", title: "Tune", sortable: true },
+
+          {
+              field: "Edit", title: "", width: 34, type: "icon",
+              icon: "glyphicon-pencil", tooltip: "Edit", events: { "click": Edit }
+          },
+          {
+              field: "Delete", title: "", width: 34, type: "icon",
+              icon: "glyphicon-remove", tooltip: "trash", events: { "click": Remove }
+          }
+        ],
+        pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+    });
+
+    function Edit(e) {
+        editTune(e.data.record.TuneID);
+    }
+    function Remove(e) {
+        deleteTune(e.data.record.TuneID);
+    }
+
+</script>

@@ -1,0 +1,220 @@
+﻿@model PIDHub.ViewModels.SearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div id="searchform" class="container">
+    <div id="mainContent">
+        <div id="searchForm" style="vertical-align:top; white-space:nowrap;">
+            <form id="searchTuneForm">
+                <table id="searchTable">
+                    <tr>
+                    <tr>
+                        <td>Frame:</td>
+                        <td>@Html.DropDownList("SelectedFrameID", Model.FrameList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>Software:</td>
+                        <td>@Html.DropDownList("SelectedFCSoftwareID", Model.FlightControllerSoftwareList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>Hardware:</td>
+                        <td>@Html.DropDownList("SelectedFCHardwareID", Model.FlightControllerHardwareList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>Motors:</td>
+                        <td>@Html.DropDownList("SelectedMotorID", Model.MotorList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>ESC:</td>
+                        <td>@Html.DropDownList("SelectedESCID", Model.ESCList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>Props:</td>
+                        <td>@Html.DropDownList("SelectedPropID", Model.PropList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td>Battery:</td>
+                        <td>@Html.DropDownList("SelectedBatteryID", Model.BatteryList, "Select", new { @class = "dropdown-toggle" })</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input class="btn btn-default" type="submit" id="submit" value="Search"> <input class="btn btn-default" type="reset" id="reset" value="Reset"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="searchContent"></div>
+        <div id="tuneDetailPopup">Tune Detail</div>
+    </div>
+</div>
+<script>
+
+    $('#searchTuneForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '@Url.Action("Search", "Home")',
+            type: 'POST',
+            data: $('#searchTuneForm').serialize(),
+            cache: false,
+            success: function (data) {
+                $('#searchContent').html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + ", " +  thrownError);
+            }
+        });
+    });
+
+    function getTuneDetail(tuneid) {
+        $.ajax({
+            url: '@Url.Action("GetTuneDetail", "Home")',
+            data: { tuneID: tuneid },
+            cache: false,
+            dataType: "html",
+            success: function (data) {
+                $('#tuneDetailPopup').html(data);
+                $('#tuneDetailPopup').dialog("open");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + ", " +  thrownError);
+            }
+        });
+        }
+
+        $(function () {
+            $("#tuneDetailPopup").dialog({
+                autoOpen: false,
+                width: 750,
+                height: 550,
+                modal: true,
+                title: "Details",
+                buttons: {
+                    Close: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+        });
+
+        function addQuad() {
+            $.ajax({
+                url: '@Url.Action("AddQuad", "Home")',
+                dataType: "html",
+                success: function (data) {
+                    $('#mainContent').html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+        function editQuad(id) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("EditQuad", "Home")',
+                dataType: "html",
+                data: { 'quadID': id },
+                success: function (data) {
+                    $('#mainContent').html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+        function getTunes(quadid) {
+            $.ajax({
+                url: '@Url.Action("ShowUserQuadTuneList", "Home")',
+                dataType: "html",
+                data: { 'quadID': quadid },
+                cache: false,
+                success: function (data) {
+                    $('#mainContent').html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+        function deleteQuad(quadid) {
+            if (confirm("Deleting this quad will also delete any tunes associated with it.\n\nPress OK to continue...")) {
+                $.ajax({
+                    cache: false,
+                    url: '@Url.Action("DeleteQuad", "Home")',
+                    type: 'POST',
+                    data: { 'quadID': quadid },
+                    success: function (msg) {
+                        if (msg != "") {
+                            alert(msg);
+                        }
+                        else {
+                            alert("Quad Deleted");
+                            getUserQuadList();                           
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ", " + thrownError);
+                    }
+                });
+            }
+         }
+
+        function addTune(quadID, fcSoftwareID) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("AddTune", "Home")',
+                dataType: "html",
+                data: { quadID: quadID, fcSoftwareID: fcSoftwareID },
+                success: function (data) {
+                    $('#mainContent').html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+        function editTune(id) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("EditTune", "Home")',
+                dataType: "html",
+                data: { 'tuneID': id },
+                success: function (data) {
+                    $('#mainContent').html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+        function deleteTune(tuneid, quadid) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("DeleteTune", "Home")',
+                type: 'POST',
+                data: { 'tuneID': tuneid },
+                cache: false,
+                success: function (msg) {
+                    if (msg != "") {
+                        alert(msg);
+                    }
+                    else {
+                        alert("Tune Deleted");
+                        getTunes(quadid);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + ", " + thrownError);
+                }
+            });
+        }
+
+</script>

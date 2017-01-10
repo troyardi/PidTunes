@@ -1,0 +1,74 @@
+﻿@model PIDHub.ViewModels.UserTuneViewModel
+
+<div class="container">
+    <p class="h3">
+        @(Model.TuneID == 0 ? "Add" : "Edit") Tune</p>
+    <div id="searchForm" style="display: table-cell; vertical-align:top; white-space:nowrap;">
+        <form id="addEditTuneForm">
+            @Html.HiddenFor(m => m.TuneID)
+            @Html.HiddenFor(m => m.QuadID)
+            @Html.HiddenFor(m => m.FlightControllerSoftwareID)
+            <table id="searchTable">
+                <tr>
+                    <td>Tune Name:</td>
+                    <td>@Html.TextBoxFor(m => m.TuneName)</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @{Html.RenderAction("GetPIDTable", "Home", new { fcControllerSoftwareID = Model.FlightControllerSoftwareID, tuneID = Model.TuneID, isEditable = true });}
+                    </td>
+                </tr>
+                <tr>
+                    <td><input class="btn btn-default" type="submit" id="submit" value="Save"></td>
+                    <td><input class="btn btn-default" type="button" id="backButton" value="Back"></td>
+                </tr>
+            </table>
+      </form>
+   </div>
+</div>
+    <script>
+        $('#addEditTuneForm').submit(function (e) {
+
+            e.preventDefault();
+            if (validateTuneForm()) {
+                $.ajax({
+                    url: '@Url.Action("SaveTune", "Home")',
+                    type: 'POST',
+                    data: $('#addEditTuneForm').serialize(),
+                    cache: false,
+                    success: function (msg) {
+                        if (msg != "") {
+                            $("#errorMessage").html(msg);
+                        }
+                        else {
+                            alert("Save Completed");;
+                            getTunes($('#QuadID').val());
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ", " + thrownError);
+                    }
+                });
+            }
+        });
+
+        function validateTuneForm() {
+            var errorMsg = "";
+            var fieldValue;
+
+            fieldValue = $("#TuneName").val();
+            if (fieldValue == "") {
+                errorMsg += "Please provide a Tune Name.";
+                alert(errorMsg);
+                return false;
+            }
+            else {
+                return true; 
+            }
+        }
+
+        $("#backButton").click(function () {
+            getUserQuadList();
+        });
+
+    </script>

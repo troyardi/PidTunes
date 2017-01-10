@@ -1,0 +1,45 @@
+﻿@model PIDHub.ViewModels.QuadTuneDetailViewModel
+<div>
+    @Model.TuneDetail.TuneName
+
+    @{Html.RenderAction("GetPIDTable", "Home", new { fcControllerSoftwareID = Model.TuneDetail.FlightControllerSoftwareID, tuneID = Model.TuneDetail.TuneID, isEditable = false });}
+
+    Pilot Details<br />
+    <table>
+        <tr>
+            <td>Pilot name:</td>
+            <td>@Model.TuneDetail.PilotName</td>
+        </tr>
+    </table>
+    Quad Details<br />
+    <table>
+        <tr>
+            <td>Frame:</td>
+            <td>@Model.TuneDetail.FrameName</td>
+        </tr>
+        <tr>
+            <td>Motors:</td>
+            <td>@Model.TuneDetail.MotorName</td>
+        </tr>
+        <tr>
+            <td>ESC:</td>
+            <td>@Model.TuneDetail.ESCName</td>
+        </tr>
+        <tr>
+            <td>Props:</td>
+            <td>@Model.TuneDetail.PropName</td>
+        </tr>
+        <tr>
+            <td>FC Software:</td>
+            <td>@Model.TuneDetail.FlightControllerSoftwareName</td>
+        </tr>
+        <tr>
+            <td>FC Hardware:</td>
+            <td>@Model.TuneDetail.FlightControllerHardwareName</td>
+        </tr>
+        <tr>
+            <td>Battery:</td>
+            <td>@Model.TuneDetail.BatteryName</td>
+        </tr>
+    </table>
+</div>

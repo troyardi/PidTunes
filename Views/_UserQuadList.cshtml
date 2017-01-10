@@ -1,0 +1,70 @@
+﻿<h2>My Quads</h2>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table id="quadGrid" data-source="@Url.Action("GetUserQuadList", "Home")"></table>
+            <div><button id="addQuad" type="button" onclick="addQuad();" class="btn btn-primary">Add Quad</button></div>
+        </div>
+    </div>
+</div>
+        @*
+
+                columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(o => @<button type="button" class="btn btn-primary" onclick="editQuad(@o.QuadID);">Edit</button>);
+
+                columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(o => @<button type="button" class="btn btn-primary" onclick="getTunes(@o.QuadID);">Tunes</button>);
+
+                columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(o => @<button type="button" class="btn btn-primary" onclick="deleteQuad(@o.QuadID);">Delete</button>);
+
+
+            }).WithPaging(10).Sortable(true)*@
+<script>
+    grid = $("#quadGrid").grid({
+        dataKey: "TuneID",
+        uiLibrary: "bootstrap",
+        columns: [
+          { field: "QuadName", title: "Quad", sortable: true },
+          { field: "FrameName", title: "Frame", sortable: true},
+          { field: "FlightControllerSoftwareName", title: "Software", sortable: true},
+          { field: "FlightControllerHardwareName", title: "Hardware", sortable: true},
+          { field: "MotorName", title: "Motor", sortable: true},
+          { field: "ESCName", title: "ESC", sortable: true},
+          { field: "PropName", title: "Prop", sortable: true},
+          { field: "BatteryName", title: "Battery", sortable: true},
+
+          {
+              field: "Edit", title: "", width: 34, type: "icon",
+              icon: "glyphicon-pencil", tooltip: "Edit", events: { "click": Edit }
+          },
+          {
+              field: "Tunes", title: "", width: 34, type: "icon",
+              icon: "glyphicon-cog", tooltip: "Manage Tunes", events: { "click": Tunes }
+          },
+          {
+              field: "Delete", title: "", width: 34, type: "icon",
+              icon: "glyphicon-trash", tooltip: "Delete", events: { "click": Remove }
+          }
+        ],
+        pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+    });
+
+    function Edit(e) {
+        editQuad(e.data.record.QuadID);
+    }
+    function Tunes(e) {
+        getTunes(e.data.record.QuadID);
+    }
+
+    function Remove(e) {
+        deleteQuad(e.data.record.QuadID);
+    }
+
+    </script>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62de78016f2049b88fd58525ffbd0186" Name="Diagram1">
+        <EntityTypeShape EntityType="pidhubModel.Battery" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="pidhubModel.ESC" Width="1.5" PointX="0.75" PointY="18.125" />
+        <EntityTypeShape EntityType="pidhubModel.FlightControllerHardware" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="pidhubModel.FlightControllerSoftware" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="pidhubModel.Frame" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="pidhubModel.Motor" Width="1.5" PointX="0.75" PointY="11.125" />
+        <EntityTypeShape EntityType="pidhubModel.Prop" Width="1.5" PointX="0.75" PointY="13.375" />
+        <EntityTypeShape EntityType="pidhubModel.Quad" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="pidhubModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pidhubModel.Tune" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="pidhubModel.UserAccount" Width="1.5" PointX="0.75" PointY="20.5" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_Battery" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_ESC" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_FlightControllerHardware" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_FlightControllerSoftware" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_Frame" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_Motor" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_Prop" />
+        <AssociationConnector Association="pidhubModel.FK_Quad_UserAccount" />
+        <AssociationConnector Association="pidhubModel.FK_Tune_Quad" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

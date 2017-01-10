@@ -1,0 +1,36 @@
+﻿<div class="container-fluid">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="tuneGrid" data-source="@Url.Action("GetSearchResults", "Home")"></table>
+        </div>
+    </div>
+</div>
+<script>
+
+    grid = $("#tuneGrid").grid({
+        dataKey: "TuneID",
+        uiLibrary: "bootstrap",
+        columns: [
+          { field: "PilotName", title: "Pilot", sortable: true },
+          { field: "TuneName", title: "Tune", sortable: true},
+          { field: "FrameName", title: "Frame", sortable: true},
+          { field: "MotorName", title: "Motor", sortable: true},
+          { field: "ESCName", title: "ESC", sortable: true},
+          { field: "FlightControllerHardwareName", title: "Hardware", sortable: true},
+          { field: "FlightControllerSoftwareName", title: "Software", sortable: true},
+          { field: "PropName", title: "Prop", sortable: true},
+          { field: "BatteryName", title: "Battery", sortable: true},
+          
+          {
+              field: "ViewDetails", title: "", width: 34, type: "icon",
+              icon: "glyphicon-eye-open", tooltip: "View Details", events: { "click": ViewDetails }
+          }
+        ],
+        pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+    });
+
+    function ViewDetails(e) {
+        getTuneDetail(e.data.record.TuneID);
+    }
+    
+</script>

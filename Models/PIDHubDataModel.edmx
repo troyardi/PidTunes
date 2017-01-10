@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pidhubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Battery">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="BatteryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ESCName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlightControllerHardware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FCHardwareName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlightControllerSoftware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FCSoftwareName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Frame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FrameName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Motor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MotorName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Prop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Quad">
+          <Key>
+            <PropertyRef Name="Quad_ID" />
+          </Key>
+          <Property Name="Quad_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="QuadName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FlightControllerHardwareID" Type="int" Nullable="false" />
+          <Property Name="FlightControllerSoftwareID" Type="int" Nullable="false" />
+          <Property Name="MotorID" Type="int" Nullable="false" />
+          <Property Name="FrameID" Type="int" Nullable="false" />
+          <Property Name="PropID" Type="int" Nullable="false" />
+          <Property Name="ESCID" Type="int" Nullable="false" />
+          <Property Name="BatteryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tune">
+          <Key>
+            <PropertyRef Name="Tune_ID" />
+          </Key>
+          <Property Name="Tune_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quad_ID" Type="int" Nullable="false" />
+          <Property Name="TuneName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Roll_P" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_P" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_P" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_I" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_I" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_I" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_D" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_D" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_D" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_Rate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_Rate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_Rate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCRate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCRate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCRate" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCCurve" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCCurve" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCCurve" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCExpo" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCExpo" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCExpo" Type="decimal" Precision="6" Scale="3" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PilotName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Quad_Battery">
+          <End Role="Battery" Type="Self.Battery" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Battery">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="BatteryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_ESC">
+          <End Role="ESC" Type="Self.ESC" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="ESCID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_FlightControllerHardware">
+          <End Role="FlightControllerHardware" Type="Self.FlightControllerHardware" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightControllerHardware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FlightControllerHardwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_FlightControllerSoftware">
+          <End Role="FlightControllerSoftware" Type="Self.FlightControllerSoftware" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightControllerSoftware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FlightControllerSoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Frame">
+          <End Role="Frame" Type="Self.Frame" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Frame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FrameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Motor">
+          <End Role="Motor" Type="Self.Motor" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="MotorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Prop">
+          <End Role="Prop" Type="Self.Prop" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="PropID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="Quad" Type="Self.Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tune_Quad">
+          <End Role="Quad" Type="Self.Quad" Multiplicity="1" />
+          <End Role="Tune" Type="Self.Tune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quad">
+              <PropertyRef Name="Quad_ID" />
+            </Principal>
+            <Dependent Role="Tune">
+              <PropertyRef Name="Quad_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="pidhubModelStoreContainer">
+          <EntitySet Name="Battery" EntityType="Self.Battery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESC" EntityType="Self.ESC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlightControllerHardware" EntityType="Self.FlightControllerHardware" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlightControllerSoftware" EntityType="Self.FlightControllerSoftware" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Frame" EntityType="Self.Frame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motor" EntityType="Self.Motor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prop" EntityType="Self.Prop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quad" EntityType="Self.Quad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tune" EntityType="Self.Tune" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Quad_Battery" Association="Self.FK_Quad_Battery">
+            <End Role="Battery" EntitySet="Battery" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_ESC" Association="Self.FK_Quad_ESC">
+            <End Role="ESC" EntitySet="ESC" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_FlightControllerHardware" Association="Self.FK_Quad_FlightControllerHardware">
+            <End Role="FlightControllerHardware" EntitySet="FlightControllerHardware" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_FlightControllerSoftware" Association="Self.FK_Quad_FlightControllerSoftware">
+            <End Role="FlightControllerSoftware" EntitySet="FlightControllerSoftware" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Frame" Association="Self.FK_Quad_Frame">
+            <End Role="Frame" EntitySet="Frame" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Motor" Association="Self.FK_Quad_Motor">
+            <End Role="Motor" EntitySet="Motor" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Prop" Association="Self.FK_Quad_Prop">
+            <End Role="Prop" EntitySet="Prop" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_UserAccount" Association="Self.FK_Quad_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Quad" EntitySet="Quad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tune_Quad" Association="Self.FK_Tune_Quad">
+            <End Role="Quad" EntitySet="Quad" />
+            <End Role="Tune" EntitySet="Tune" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pidhubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="pidhubEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(pidhubModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(pidhubModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Batteries" EntityType="pidhubModel.Battery" />
+          <EntitySet Name="ESCs" EntityType="pidhubModel.ESC" />
+          <EntitySet Name="FlightControllerHardwares" EntityType="pidhubModel.FlightControllerHardware" />
+          <EntitySet Name="FlightControllerSoftwares" EntityType="pidhubModel.FlightControllerSoftware" />
+          <EntitySet Name="Frames" EntityType="pidhubModel.Frame" />
+          <EntitySet Name="Motors" EntityType="pidhubModel.Motor" />
+          <EntitySet Name="Props" EntityType="pidhubModel.Prop" />
+          <EntitySet Name="Quads" EntityType="pidhubModel.Quad" />
+          <EntitySet Name="sysdiagrams" EntityType="pidhubModel.sysdiagram" />
+          <EntitySet Name="Tunes" EntityType="pidhubModel.Tune" />
+          <EntitySet Name="UserAccounts" EntityType="pidhubModel.UserAccount" />
+          <AssociationSet Name="FK_Quad_Battery" Association="pidhubModel.FK_Quad_Battery">
+            <End Role="Battery" EntitySet="Batteries" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_ESC" Association="pidhubModel.FK_Quad_ESC">
+            <End Role="ESC" EntitySet="ESCs" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_FlightControllerHardware" Association="pidhubModel.FK_Quad_FlightControllerHardware">
+            <End Role="FlightControllerHardware" EntitySet="FlightControllerHardwares" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_FlightControllerSoftware" Association="pidhubModel.FK_Quad_FlightControllerSoftware">
+            <End Role="FlightControllerSoftware" EntitySet="FlightControllerSoftwares" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Frame" Association="pidhubModel.FK_Quad_Frame">
+            <End Role="Frame" EntitySet="Frames" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Motor" Association="pidhubModel.FK_Quad_Motor">
+            <End Role="Motor" EntitySet="Motors" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_Prop" Association="pidhubModel.FK_Quad_Prop">
+            <End Role="Prop" EntitySet="Props" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quad_UserAccount" Association="pidhubModel.FK_Quad_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Quad" EntitySet="Quads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tune_Quad" Association="pidhubModel.FK_Tune_Quad">
+            <End Role="Quad" EntitySet="Quads" />
+            <End Role="Tune" EntitySet="Tunes" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Battery">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="BatteryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_Battery" FromRole="Battery" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="ESC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESCName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_ESC" FromRole="ESC" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="FlightControllerHardware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FCHardwareName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_FlightControllerHardware" FromRole="FlightControllerHardware" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="FlightControllerSoftware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FCSoftwareName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_FlightControllerSoftware" FromRole="FlightControllerSoftware" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="Frame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FrameName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_Frame" FromRole="Frame" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="Motor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MotorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_Motor" FromRole="Motor" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="Prop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_Prop" FromRole="Prop" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="Quad">
+          <Key>
+            <PropertyRef Name="Quad_ID" />
+          </Key>
+          <Property Name="Quad_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="QuadName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FlightControllerHardwareID" Type="Int32" Nullable="false" />
+          <Property Name="FlightControllerSoftwareID" Type="Int32" Nullable="false" />
+          <Property Name="MotorID" Type="Int32" Nullable="false" />
+          <Property Name="FrameID" Type="Int32" Nullable="false" />
+          <Property Name="PropID" Type="Int32" Nullable="false" />
+          <Property Name="ESCID" Type="Int32" Nullable="false" />
+          <Property Name="BatteryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Battery" Relationship="pidhubModel.FK_Quad_Battery" FromRole="Quad" ToRole="Battery" />
+          <NavigationProperty Name="ESC" Relationship="pidhubModel.FK_Quad_ESC" FromRole="Quad" ToRole="ESC" />
+          <NavigationProperty Name="FlightControllerHardware" Relationship="pidhubModel.FK_Quad_FlightControllerHardware" FromRole="Quad" ToRole="FlightControllerHardware" />
+          <NavigationProperty Name="FlightControllerSoftware" Relationship="pidhubModel.FK_Quad_FlightControllerSoftware" FromRole="Quad" ToRole="FlightControllerSoftware" />
+          <NavigationProperty Name="Frame" Relationship="pidhubModel.FK_Quad_Frame" FromRole="Quad" ToRole="Frame" />
+          <NavigationProperty Name="Motor" Relationship="pidhubModel.FK_Quad_Motor" FromRole="Quad" ToRole="Motor" />
+          <NavigationProperty Name="Prop" Relationship="pidhubModel.FK_Quad_Prop" FromRole="Quad" ToRole="Prop" />
+          <NavigationProperty Name="UserAccount" Relationship="pidhubModel.FK_Quad_UserAccount" FromRole="Quad" ToRole="UserAccount" />
+          <NavigationProperty Name="Tunes" Relationship="pidhubModel.FK_Tune_Quad" FromRole="Quad" ToRole="Tune" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tune">
+          <Key>
+            <PropertyRef Name="Tune_ID" />
+          </Key>
+          <Property Name="Tune_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quad_ID" Type="Int32" Nullable="false" />
+          <Property Name="TuneName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Roll_P" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_P" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_P" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_I" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_I" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_I" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_D" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_D" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_D" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_Rate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_Rate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_Rate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCRate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCRate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCRate" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCCurve" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCCurve" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCCurve" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Roll_RCExpo" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Pitch_RCExpo" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="Yaw_RCExpo" Type="Decimal" Precision="6" Scale="3" />
+          <NavigationProperty Name="Quad" Relationship="pidhubModel.FK_Tune_Quad" FromRole="Tune" ToRole="Quad" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PilotName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quads" Relationship="pidhubModel.FK_Quad_UserAccount" FromRole="UserAccount" ToRole="Quad" />
+        </EntityType>
+        <Association Name="FK_Quad_Battery">
+          <End Type="pidhubModel.Battery" Role="Battery" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Battery">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="BatteryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_ESC">
+          <End Type="pidhubModel.ESC" Role="ESC" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="ESCID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_FlightControllerHardware">
+          <End Type="pidhubModel.FlightControllerHardware" Role="FlightControllerHardware" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightControllerHardware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FlightControllerHardwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_FlightControllerSoftware">
+          <End Type="pidhubModel.FlightControllerSoftware" Role="FlightControllerSoftware" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightControllerSoftware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FlightControllerSoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Frame">
+          <End Type="pidhubModel.Frame" Role="Frame" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Frame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="FrameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Motor">
+          <End Type="pidhubModel.Motor" Role="Motor" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="MotorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_Prop">
+          <End Type="pidhubModel.Prop" Role="Prop" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="PropID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quad_UserAccount">
+          <End Type="pidhubModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Quad">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tune_Quad">
+          <End Type="pidhubModel.Quad" Role="Quad" Multiplicity="1" />
+          <End Type="pidhubModel.Tune" Role="Tune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quad">
+              <PropertyRef Name="Quad_ID" />
+            </Principal>
+            <Dependent Role="Tune">
+              <PropertyRef Name="Quad_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pidhubModelStoreContainer" CdmEntityContainer="pidhubEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pidhubModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pidhubModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pidhubModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="pidhubModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pidhubModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="pidhubModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pidhubModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pidhubModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pidhubModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Batteries">
+            <EntityTypeMapping TypeName="pidhubModel.Battery">
+              <MappingFragment StoreEntitySet="Battery">
+                <ScalarProperty Name="BatteryName" ColumnName="BatteryName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESCs">
+            <EntityTypeMapping TypeName="pidhubModel.ESC">
+              <MappingFragment StoreEntitySet="ESC">
+                <ScalarProperty Name="ESCName" ColumnName="ESCName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlightControllerHardwares">
+            <EntityTypeMapping TypeName="pidhubModel.FlightControllerHardware">
+              <MappingFragment StoreEntitySet="FlightControllerHardware">
+                <ScalarProperty Name="FCHardwareName" ColumnName="FCHardwareName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlightControllerSoftwares">
+            <EntityTypeMapping TypeName="pidhubModel.FlightControllerSoftware">
+              <MappingFragment StoreEntitySet="FlightControllerSoftware">
+                <ScalarProperty Name="FCSoftwareName" ColumnName="FCSoftwareName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Frames">
+            <EntityTypeMapping TypeName="pidhubModel.Frame">
+              <MappingFragment StoreEntitySet="Frame">
+                <ScalarProperty Name="FrameName" ColumnName="FrameName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motors">
+            <EntityTypeMapping TypeName="pidhubModel.Motor">
+              <MappingFragment StoreEntitySet="Motor">
+                <ScalarProperty Name="MotorName" ColumnName="MotorName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Props">
+            <EntityTypeMapping TypeName="pidhubModel.Prop">
+              <MappingFragment StoreEntitySet="Prop">
+                <ScalarProperty Name="PropName" ColumnName="PropName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quads">
+            <EntityTypeMapping TypeName="pidhubModel.Quad">
+              <MappingFragment StoreEntitySet="Quad">
+                <ScalarProperty Name="BatteryID" ColumnName="BatteryID" />
+                <ScalarProperty Name="ESCID" ColumnName="ESCID" />
+                <ScalarProperty Name="PropID" ColumnName="PropID" />
+                <ScalarProperty Name="FrameID" ColumnName="FrameID" />
+                <ScalarProperty Name="MotorID" ColumnName="MotorID" />
+                <ScalarProperty Name="FlightControllerSoftwareID" ColumnName="FlightControllerSoftwareID" />
+                <ScalarProperty Name="FlightControllerHardwareID" ColumnName="FlightControllerHardwareID" />
+                <ScalarProperty Name="QuadName" ColumnName="QuadName" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Quad_ID" ColumnName="Quad_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="pidhubModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tunes">
+            <EntityTypeMapping TypeName="pidhubModel.Tune">
+              <MappingFragment StoreEntitySet="Tune">
+                <ScalarProperty Name="Yaw_RCExpo" ColumnName="Yaw_RCExpo" />
+                <ScalarProperty Name="Pitch_RCExpo" ColumnName="Pitch_RCExpo" />
+                <ScalarProperty Name="Roll_RCExpo" ColumnName="Roll_RCExpo" />
+                <ScalarProperty Name="Yaw_RCCurve" ColumnName="Yaw_RCCurve" />
+                <ScalarProperty Name="Pitch_RCCurve" ColumnName="Pitch_RCCurve" />
+                <ScalarProperty Name="Roll_RCCurve" ColumnName="Roll_RCCurve" />
+                <ScalarProperty Name="Yaw_RCRate" ColumnName="Yaw_RCRate" />
+                <ScalarProperty Name="Pitch_RCRate" ColumnName="Pitch_RCRate" />
+                <ScalarProperty Name="Roll_RCRate" ColumnName="Roll_RCRate" />
+                <ScalarProperty Name="Yaw_Rate" ColumnName="Yaw_Rate" />
+                <ScalarProperty Name="Pitch_Rate" ColumnName="Pitch_Rate" />
+                <ScalarProperty Name="Roll_Rate" ColumnName="Roll_Rate" />
+                <ScalarProperty Name="Yaw_D" ColumnName="Yaw_D" />
+                <ScalarProperty Name="Pitch_D" ColumnName="Pitch_D" />
+                <ScalarProperty Name="Roll_D" ColumnName="Roll_D" />
+                <ScalarProperty Name="Yaw_I" ColumnName="Yaw_I" />
+                <ScalarProperty Name="Pitch_I" ColumnName="Pitch_I" />
+                <ScalarProperty Name="Roll_I" ColumnName="Roll_I" />
+                <ScalarProperty Name="Yaw_P" ColumnName="Yaw_P" />
+                <ScalarProperty Name="Pitch_P" ColumnName="Pitch_P" />
+                <ScalarProperty Name="Roll_P" ColumnName="Roll_P" />
+                <ScalarProperty Name="TuneName" ColumnName="TuneName" />
+                <ScalarProperty Name="Quad_ID" ColumnName="Quad_ID" />
+                <ScalarProperty Name="Tune_ID" ColumnName="Tune_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="pidhubModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PilotName" ColumnName="PilotName" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
